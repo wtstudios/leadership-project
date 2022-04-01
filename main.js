@@ -1,4 +1,5 @@
 let currentSlide = 0;
+let showingClue = false;
 let slides = [];
 function createElement(tag, id = void 0, className = void 0) {
     const ele = document.createElement(tag);
@@ -72,7 +73,7 @@ title = createElement('h1', 'title');
 buttonLeft.textContent = '←';
 buttonRight.textContent = '→';
 title.textContent = 'My Name';
-title.style.position.y = 100000;
+title.style.display = 'none';
 help.textContent = '?';
 document.body.appendChild(container).append(buttonLeft, buttonRight, help, title);
 buttonLeft.addEventListener('click', e => {
@@ -89,6 +90,18 @@ buttonRight.addEventListener('click', e => {
         if(currentSlide != slides.length - 1) {
             currentSlide++;
             title.textContent = slides[currentSlide].title;
+        }
+    }
+});
+help.addEventListener('click', e => {
+    if (!e.button) {
+        if(showingClue) {
+            title.style.display = 'none';
+            showingClue = false;
+        }
+        else {
+            title.style.display = 'block';
+            showingClue = true;
         }
     }
 });

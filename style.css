@@ -17,7 +17,7 @@ html, body {
     font-size: 150%;
     border:#000000;
     text-align: center;
-    top: 80%;
+    top: 90%;
     left: 30%;
   }
   button#help {
@@ -30,7 +30,7 @@ html, body {
     font-size: 150%;
     border: #000000;
     text-align: center;
-    top: 80%;
+    top: 90%;
     left: 45%;
   }
   button#right {
@@ -43,6 +43,20 @@ html, body {
     font-size: 150%;
     border: #000000;
     text-align: center;
-    top: 80%;
+    top: 90%;
     left: 60%;
+  }
+  img#currentClue {
+      position: absolute;
+      width: 100%;
+      top: 35%;
+  }
+  h1#title {
+    font-size: 250%;
+    font-family: monospace;
+    color: hsl(0, 0%, 100%);
+    text-align: center;
+    left: 50%;
+    margin-top: 30%;
+    offset-anchor: 30%;
   }

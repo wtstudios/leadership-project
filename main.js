@@ -7,32 +7,6 @@ function createElement(tag, id = void 0, className = void 0) {
     return ele;
   }
 
-  const container = createElement('div', 'menu-container'),
-    buttonLeft = createElement('button', 'left'),
-    buttonRight = createElement('button', 'right'),
-    help = createElement('button', 'help');
-
-    buttonLeft.textContent = '←';
-    buttonRight.textContent = '→';
-    help.textContent = '?';
-
-    document.body.appendChild(container).append(buttonLeft, buttonRight, help);
-    buttonLeft.addEventListener('click', e => {
-        if (!e.button) {
-            if(currentSlide != 0) {
-                currentSlide--;
-            }
-        }
-    });
-
-    buttonRight.addEventListener('click', e => {
-        if (!e.button) {
-            if(currentSlide != slides.length - 1) {
-                currentSlide++;
-            }
-        }
-  });
-
 const s = p5 => {
     let assets;
     p5.setup = function() {
@@ -42,16 +16,35 @@ const s = p5 => {
         slides = [
             {
                 title: 'My Name',
-                bgTint: '#303030',
                 mainImg: p5.loadImage('oh-henry.svg'),
             },
             {
-                title: 'My Name',
-                bgTint: '#303030',
-                mainImg: p5.loadImage('puzzlePiece.svg'),
+                title: 'My Origin',
+                mainImg: p5.loadImage('bcflag.svg'),
+            },
+            {
+                title: 'My Communication Style',
+                mainImg: p5.loadImage('caution.svg'),
+            },
+            {
+                title: 'A global issue I care about',
+                mainImg: p5.loadImage('covid.svg'),
+            },
+            {
+                title: 'A hobby or passion',
+                mainImg: p5.loadImage('programmingClue.svg'),
+            },
+            {
+                title: 'A person who inspires me',
+                mainImg: p5.loadImage('inspiring.svg'),
+            },
+            {
+                title: '3 Big Questions',
+                mainImg: p5.loadImage('3q.svg'),
             },
         ];
-        p5.createCanvas(p5.windowWidth, p5.windowHeight * 0.75);
+        let cnv = p5.createCanvas(p5.windowWidth, p5.windowHeight * 0.75);
+        cnv.position(0, 0, 'fixed');
         p5.angleMode(p5.DEGREES);
         p5.imageMode(p5.CENTER);
         window.addEventListener('resize', function() {p5.width = p5.windowWidth; p5.height = p5.windowHeight * 0.75;}, false);
@@ -59,13 +52,8 @@ const s = p5 => {
     };
     p5.displaySlides = function(slide) {
         p5.push();
-        p5.tint(slides[slide].bgTint);
         p5.translate(p5.width / 2, p5.height / 2);
-        p5.rotate(p5.cos(p5.frameCount * 2) * 5);
-        p5.image(assets.puzzlePiece, 0, 0, (p5.width + p5.height) / 6, (p5.width + p5.height) / 6);
-        p5.rotate(-p5.cos(p5.frameCount * 10) * 10);
-        p5.noTint();
-        p5.rotate(p5.sin(p5.frameCount * 10) * 10);
+        p5.rotate(p5.sin(p5.frameCount * 4) * 2);
         p5.image(slides[slide].mainImg, 0, 0, (p5.width + p5.height) / 3, (p5.width + p5.height) / 3)
         p5.pop();
     }
@@ -75,3 +63,32 @@ const s = p5 => {
     }
 };
 new p5(s);
+
+const container = createElement('div', 'menu-container'),
+buttonLeft = createElement('button', 'left'),
+buttonRight = createElement('button', 'right'),
+help = createElement('button', 'help'),
+title = createElement('h1', 'title');
+buttonLeft.textContent = '←';
+buttonRight.textContent = '→';
+title.textContent = 'My Name';
+title.style.position.y = 100000;
+help.textContent = '?';
+document.body.appendChild(container).append(buttonLeft, buttonRight, help, title);
+buttonLeft.addEventListener('click', e => {
+    if (!e.button) {
+        if(currentSlide != 0) {
+            currentSlide--;
+            title.textContent = slides[currentSlide].title;
+        }
+    }
+});
+
+buttonRight.addEventListener('click', e => {
+    if (!e.button) {
+        if(currentSlide != slides.length - 1) {
+            currentSlide++;
+            title.textContent = slides[currentSlide].title;
+        }
+    }
+});
